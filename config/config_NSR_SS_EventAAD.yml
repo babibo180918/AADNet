@@ -1,0 +1,65 @@
+setup:
+    output_path: output/
+    trainModel: true
+dataset:
+    name: EventAADDataset
+    folder: ${DATASET}/EventAAD/raw #${DATASET}/EventAAD/raw # D:\OneDrive\WORK\data\BIDS\eventaad
+    stimuli_path: ${DATASET}/EventAAD/raw/stimuli/real_story_snippet
+    pre_processed: null
+    raw: ['001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '014', '015', '016', '017', '018', '019', '020', '021', '022', '023', '024', '025']
+    all_sbjs: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    from_sbj: 0
+    to_sbj: 24
+    scaler:
+        type: RobustScaler
+        feature_range: [-1,1]
+        path: null
+    channels: ['Fp1', 'Fpz', 'Fp2', 'F7', 'F3', 'Fz', 'F4', 'F8', 'FC5', 'FC1', 'FC2', 'FC6', 'M1', 'T7-T3', 'C3', 'Cz', 'C4', 'T8-T4', 'M2', 'CP5', 'CP1', 'CP2', 'CP6', 'P7-T5', 'P3', 'Pz', 'P4', 'P8-T6', 'POz', 'O1', 'Oz', 'O2']
+    windows: [1, 2, 5, 10, 20]
+        
+    eeg_context: 0.4
+    preprocess: ThorntonM
+    splits: [0.8, 0.2, 0]
+    training_window: 0.4 # seconds
+    step: 0 #seconds
+    sr: 125
+    duplicate: false # true/false
+    n_streams: 2
+
+model:
+    tag: EEGNetAAD
+    model_name: EEGNetAAD
+    pretrained: ./output/EEGNetAAD_EventAADDataset/EEGNetAAD_SI
+    # pretrained: null
+    context: 0.4
+    F1: 8
+    D: 4
+    F2: 32
+    dropout: 0.0625
+        
+learning:
+    nFold: 8
+    nRep: 1
+    threshold: 0.5
+    loss_function:
+        type: correlation
+        name: CorrelationLoss
+    optimizer:
+        opt: NAdam
+        lr: 1e-2
+        lr_decay_step: 100
+        lr_decay_gamma: 0.1
+        eps: 0.00000001
+        weight_decay: 1e-7
+        momentum: 0
+        betas: (0.9, 0.999)
+    running:
+        num_workers: 4
+        batch_size: 256
+        epochs: 50
+        lambda: 100.0
+        print_every: 1
+        early_stop: loss
+        parallelization: multi-fold
+        device: [0, 1, 2, 3]
+        save_path: EEGNetAAD.pth
