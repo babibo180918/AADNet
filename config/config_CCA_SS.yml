@@ -1,0 +1,107 @@
+#initial settings
+setup:
+    output_path: output/
+    trainModel: true
+dataset:
+    # name: EventAADDataset
+    # folder: ${DATASET}/EventAAD/raw #${DATASET}/EventAAD/raw # D:\OneDrive\WORK\data\BIDS\eventaad
+    # stimuli_path: ${DATASET}/EventAAD/raw/stimuli/real_story_snippet
+    # pre_processed: null
+    # raw: ['001', '002', '003', '004', '005', '006', '007', '008', '009', '010', '011', '012', '014', '015', '016', '017', '018', '019', '020', '021', '022', '023', '024', '025']
+    # all_sbjs: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    # from_sbj: 0
+    # to_sbj: 24
+    # scaler: 
+        # type: RobustScaler
+        # feature_range: [-1,1]
+        # path: null # ${DATASET}/EventAAD/EventAAD_part4_RobustScaler.scl
+    # channels: ['Fp1', 'Fpz', 'Fp2', 'F7', 'F3', 'Fz', 'F4', 'F8', 'FC5', 'FC1', 'FC2', 'FC6', 'M1', 'T7-T3', 'C3', 'Cz', 'C4', 'T8-T4', 'M2', 'CP5', 'CP1', 'CP2', 'CP6', 'P7-T5', 'P3', 'Pz', 'P4', 'P8-T6', 'POz', 'O1', 'Oz', 'O2']
+    # windows: [1, 2, 5, 10, 20]
+    
+    # name: DTUDataset
+    # folder: ${DATASET}/FuglsangAAD/eeg_new/
+    # stimuli_path: ${DATASET}/FuglsangAAD/stimuli
+    # pre_processed: null
+    # raw: [S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18]    
+    # all_sbjs: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+    # from_sbj: 0
+    # to_sbj: 18
+    # scaler:
+        # type: RobustScaler
+        # feature_range: [-1,1]
+        # path: null # ${DATASET}/FuglsangAAD/FuglsangAAD_RobustScaler.scl
+    # channels: ['Fp1', 'AF7', 'AF3', 'F1', 'F3', 'F5', 'F7', 'FT7', 'FC5', 'FC3', 'FC1', 'C1', 'C3', 'C5', 'T7', 'TP7', 'CP5', 'CP3', 'CP1', 'P1', 'P3', 'P5', 'P7', 'P9', 'PO7', 'PO3', 'O1', 'Iz', 'Oz', 'POz', 'Pz', 'CPz', 'Fpz', 'Fp2', 'AF8', 'AF4', 'AFz', 'Fz', 'F2', 'F4', 'F6', 'F8', 'FT8', 'FC6', 'FC4', 'FC2', 'FCz', 'Cz', 'C2', 'C4', 'C6', 'T8', 'TP8', 'CP6', 'CP4', 'CP2', 'P2', 'P4', 'P6', 'P8', 'P10', 'PO8', 'PO4', 'O2']    # Fuglsang 64    
+    # windows: [1, 2, 5, 10, 20, 40]  
+
+    name: Das2019Dataset
+    folder: ${DATASET}/Das2019/eeg
+    stimuli_path: ${DATASET}/Das2019/stimuli
+    pre_processed: null
+    raw: [S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16]    
+    all_sbjs: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    from_sbj: 0
+    to_sbj: 16
+    scaler:
+        type: RobustScaler
+        feature_range: [-1,1]
+        path: null #${DATASET}/Das2019/Das2019_RobustScaler.scl
+    channels: ['Fp1', 'AF7', 'AF3', 'F1', 'F3', 'F5', 'F7', 'FT7', 'FC5', 'FC3', 'FC1', 'C1', 'C3', 'C5', 'T7', 'TP7', 'CP5', 'CP3', 'CP1', 'P1', 'P3', 'P5', 'P7', 'P9', 'PO7', 'PO3', 'O1', 'Iz', 'Oz', 'POz', 'Pz', 'CPz', 'Fpz', 'Fp2', 'AF8', 'AF4', 'AFz', 'Fz', 'F2', 'F4', 'F6', 'F8', 'FT8', 'FC6', 'FC4', 'FC2', 'FCz', 'Cz', 'C2', 'C4', 'C6', 'T8', 'TP8', 'CP6', 'CP4', 'CP2', 'P2', 'P4', 'P6', 'P8', 'P10', 'PO8', 'PO4', 'O2']
+    windows: [1, 2, 5, 10, 20, 40]    
+    
+    eeg_context: 0.4    
+    aud_context: 1.2
+    preprocess: proposed # ThorntonM/proposed/null
+    splits: [0.8, 0.2, 0]
+    training_window: 10 # seconds
+    step: 1.0 #seconds
+    sr: 64
+    n_streams: 2  
+
+model:
+    model_name: CCA
+    max_component: 10
+    opt: false # true/false
+    load_model: false # true/false
+    save_model: false # true/false
+    
+    # fixed_component: 3 # [7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 6, 7, 7, 7, 6, 7] #7/[7, 6, 6, 7, 7, 6, 6, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 6, 7, 7, 7, 6, 7] # EventAAD, list for SS models, single value for SI models
+    # model_path: ${DATASET}/CCA_EventAADDataset
+    # load_name: cca_loso_EventAAD_opt10
+    # save_name: cca_loso_EventAAD_opt10
+    
+    # fixed_component: 5 #5/[4, 6, 3, 4, 4, 5, 2, 2, 6, 6, 5, 6, 5, 5, 3, 8, 4, 5]
+    # model_path: ${DATASET}/CCA_DTUDataset
+    # load_name: cca_loso_DTU_opt10
+    # save_name: cca_loso_DTU_opt10
+    
+    fixed_component: [5, 8, 4, 6, 6, 6, 7, 7, 6, 7, 5, 7, 5, 4, 4, 4] #6/[8, 8, 6, 6, 5, 7, 7, 8, 6, 8, 5, 7, 6, 3, 3, 4] / [5, 8, 4, 6, 6, 6, 7, 7, 6, 7, 5, 7, 5, 4, 4, 4] (latest_exact_cross) # Das
+    model_path: ${DATASET}/CCA_Das2019Dataset
+    load_name: cca_loso_Das_opt10
+    save_name: cca_loso_Das_opt10    
+            
+learning:
+    nFold: 8
+    nRep: 1
+    threshold: 0.5
+    loss_function:
+        type: correlation
+        name: CorrelationLoss
+    optimizer:
+        opt: Adam
+        lr: 0.0001
+        lr_decay_step: 100000
+        lr_decay_gamma: 0.5
+        eps: 0.00000001
+        weight_decay: 0
+        momentum: 0
+        betas: (0.9, 0.999)
+    running:
+        num_workers: 0
+        batch_size: 32
+        epochs: 100
+        lambda: 100.0
+        print_every: 1
+        early_stop: None
+        parallelization: false
+        device: [0, 1, 2, 3]
+        save_path: CCA.pth
