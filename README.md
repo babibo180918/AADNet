@@ -52,4 +52,6 @@ How to use:
 
 The subject-independent configurations must be run before the subjec-specific configurations to obtain pretrained models. It is possible to split a full run of a dataset into smaller runs for smaller groups of subjects by changing the parameters _from_sbj_ and _to_sbj_.
 
+For the DTU dataset, the data format has to be converted from Matlab table to Matlab struct using the _table2struct_dtu.m_ before running the Python scripts.
+
 If you have any further questions, please contact the authors via email at ndtn@ece.au.dk or nguyendtnhan@gmail.com.
